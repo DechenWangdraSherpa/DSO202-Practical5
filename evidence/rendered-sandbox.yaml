@@ -1,0 +1,89 @@
+apiVersion: v1
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html>
+      <body>
+        <h1>webapp - BASE</h1>
+        <p>Default page shipped with the base. Overlays replace this.</p>
+      </body>
+    </html>
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/name: webapp
+    app.kubernetes.io/part-of: dso202-practical-05
+    environment: sandbox
+  name: sandbox-web-content-fh2f7t5845
+  namespace: webapp-sandbox
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/name: webapp
+    app.kubernetes.io/part-of: dso202-practical-05
+    environment: sandbox
+  name: sandbox-webapp
+  namespace: webapp-sandbox
+spec:
+  ports:
+  - name: http
+    port: 80
+    targetPort: http
+  selector:
+    app: webapp
+    app.kubernetes.io/name: webapp
+    app.kubernetes.io/part-of: dso202-practical-05
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: webapp
+    app.kubernetes.io/part-of: dso202-practical-05
+    environment: sandbox
+  name: sandbox-webapp
+  namespace: webapp-sandbox
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webapp
+      app.kubernetes.io/name: webapp
+      app.kubernetes.io/part-of: dso202-practical-05
+  template:
+    metadata:
+      labels:
+        app: webapp
+        app.kubernetes.io/name: webapp
+        app.kubernetes.io/part-of: dso202-practical-05
+        environment: sandbox
+    spec:
+      containers:
+      - image: nginx:1.27-alpine
+        name: nginx
+        ports:
+        - containerPort: 80
+          name: http
+        readinessProbe:
+          httpGet:
+            path: /
+            port: http
+          periodSeconds: 5
+        resources:
+          limits:
+            cpu: 100m
+            memory: 64Mi
+          requests:
+            cpu: 50m
+            memory: 32Mi
+        volumeMounts:
+        - mountPath: /usr/share/nginx/html
+          name: content
+          readOnly: true
+      volumes:
+      - configMap:
+          name: sandbox-web-content-fh2f7t5845
+        name: content

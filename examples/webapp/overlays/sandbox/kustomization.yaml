@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# Challenge extension: namePrefix only in this overlay. The base is reused
+# unchanged; Kustomize must rewrite every name AND every reference to it.
+namePrefix: sandbox-
+
+namespace: webapp-sandbox
+
+resources:
+  - ../../base
+
+labels:
+  - pairs:
+      environment: sandbox
+    includeTemplates: true

@@ -1,0 +1,119 @@
+--- /tmp/webapp-dev.yaml	2026-11-06 21:00:18.169728774 +0600
++++ /tmp/webapp-prod.yaml	2026-11-06 21:00:18.269729488 +0600
+@@ -2,10 +2,10 @@
+ kind: Namespace
+ metadata:
+   annotations:
+-    training.example.com/stage: development
++    training.example.com/stage: production
+   labels:
+-    environment: dev
+-  name: webapp-dev
++    environment: prod
++  name: webapp-prod
+ ---
+ apiVersion: v1
+ data:
+@@ -13,32 +13,32 @@
+     <!DOCTYPE html>
+     <html>
+       <body>
+-        <h1>DEV environment</h1>
+-        <p>webapp running in namespace webapp-dev</p>
++        <h1>PRODUCTION environment</h1>
++        <p>webapp running in namespace webapp-prod</p>
+       </body>
+     </html>
+ kind: ConfigMap
+ metadata:
+   annotations:
+-    training.example.com/stage: development
++    training.example.com/stage: production
+   labels:
+     app.kubernetes.io/name: webapp
+     app.kubernetes.io/part-of: dso202-practical-05
+-    environment: dev
+-  name: web-content-h7g9d4628t
+-  namespace: webapp-dev
++    environment: prod
++  name: web-content-fbkh4cm8d6
++  namespace: webapp-prod
+ ---
+ apiVersion: v1
+ kind: Service
+ metadata:
+   annotations:
+-    training.example.com/stage: development
++    training.example.com/stage: production
+   labels:
+     app.kubernetes.io/name: webapp
+     app.kubernetes.io/part-of: dso202-practical-05
+-    environment: dev
++    environment: prod
+   name: webapp
+-  namespace: webapp-dev
++  namespace: webapp-prod
+ spec:
+   ports:
+   - name: http
+@@ -54,15 +54,15 @@
+ kind: Deployment
+ metadata:
+   annotations:
+-    training.example.com/stage: development
++    training.example.com/stage: production
+   labels:
+     app.kubernetes.io/name: webapp
+     app.kubernetes.io/part-of: dso202-practical-05
+-    environment: dev
++    environment: prod
+   name: webapp
+-  namespace: webapp-dev
++  namespace: webapp-prod
+ spec:
+-  replicas: 1
++  replicas: 3
+   selector:
+     matchLabels:
+       app: webapp
+@@ -71,15 +71,15 @@
+   template:
+     metadata:
+       annotations:
+-        training.example.com/stage: development
++        training.example.com/stage: production
+       labels:
+         app: webapp
+         app.kubernetes.io/name: webapp
+         app.kubernetes.io/part-of: dso202-practical-05
+-        environment: dev
++        environment: prod
+     spec:
+       containers:
+-      - image: nginx:1.27-alpine
++      - image: nginx:1.28-alpine
+         name: nginx
+         ports:
+         - containerPort: 80
+@@ -91,16 +91,16 @@
+           periodSeconds: 5
+         resources:
+           limits:
+-            cpu: 100m
+-            memory: 64Mi
++            cpu: 500m
++            memory: 256Mi
+           requests:
+-            cpu: 50m
+-            memory: 32Mi
++            cpu: 200m
++            memory: 128Mi
+         volumeMounts:
+         - mountPath: /usr/share/nginx/html
+           name: content
+           readOnly: true
+       volumes:
+       - configMap:
+-          name: web-content-h7g9d4628t
++          name: web-content-fbkh4cm8d6
+         name: content

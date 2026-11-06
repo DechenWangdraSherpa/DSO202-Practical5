@@ -1,0 +1,32 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: webapp-qa
+
+resources:
+  - ../../base
+  - namespace.yaml
+
+labels:
+  - pairs:
+      environment: qa
+    includeTemplates: true
+
+replicas:
+  - name: webapp
+    count: 2
+
+configMapGenerator:
+  - name: web-content
+    behavior: replace
+    files:
+      - index.html
+
+# JSON 6902 patch targeted at the Deployment only.
+patches:
+  - path: patch-annotation.yaml
+    target:
+      group: apps
+      version: v1
+      kind: Deployment
+      name: webapp

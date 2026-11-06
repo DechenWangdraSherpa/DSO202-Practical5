@@ -1,0 +1,35 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: webapp-prod
+
+resources:
+  - ../../base
+  - namespace.yaml
+
+labels:
+  - pairs:
+      environment: prod
+    includeTemplates: true
+
+replicas:
+  - name: webapp
+    count: 3
+
+# Production runs a newer, pinned NGINX release.
+images:
+  - name: nginx
+    newTag: 1.28-alpine
+
+configMapGenerator:
+  - name: web-content
+    behavior: replace
+    files:
+      - index.html
+
+commonAnnotations:
+  training.example.com/stage: production
+
+# Strategic-merge patch: raises resource requests/limits for prod only.
+patches:
+  - path: patch-resources.yaml

@@ -1,0 +1,21 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# Common label added to every resource (and to selectors / pod templates).
+labels:
+  - pairs:
+      app.kubernetes.io/name: webapp
+      app.kubernetes.io/part-of: dso202-practical-05
+    includeSelectors: true
+
+resources:
+  - deployment.yaml
+  - service.yaml
+
+# Generates ConfigMap "web-content-<hash>" from index.html. The hash suffix
+# changes whenever the content changes, and Kustomize rewrites every
+# reference to "web-content" so that the Deployment rolls out.
+configMapGenerator:
+  - name: web-content
+    files:
+      - index.html

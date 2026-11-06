@@ -1,0 +1,7 @@
+# JSON 6902 patch: an explicit list of operations on explicit paths.
+# The base Deployment has no metadata.annotations, so the whole map is added.
+# ("/" inside a key would be escaped as "~1" if the key were in the path.)
+- op: add
+  path: /metadata/annotations
+  value:
+    training.example.com/owner: qa-team

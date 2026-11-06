@@ -1,0 +1,361 @@
+{
+  "name": "my-podinfo",
+  "info": {
+    "first_deployed": "2026-11-06T21:55:17.874468392+06:00",
+    "last_deployed": "2026-11-06T21:55:17.874468392+06:00",
+    "description": "Install complete",
+    "status": "deployed",
+    "notes": "1. Get the application URL by running these commands:\n  echo \"Visit http://127.0.0.1:8080 to use your application\"\n  kubectl -n dso202-helm-p6 port-forward deploy/my-podinfo 8080:9898\n"
+  },
+  "chart": {
+    "metadata": {
+      "name": "podinfo",
+      "home": "https://github.com/stefanprodan/podinfo",
+      "sources": [
+        "https://github.com/stefanprodan/podinfo"
+      ],
+      "version": "6.15.0",
+      "description": "Podinfo Helm chart for Kubernetes",
+      "maintainers": [
+        {
+          "name": "stefanprodan",
+          "email": "stefanprodan@users.noreply.github.com"
+        }
+      ],
+      "apiVersion": "v1",
+      "appVersion": "6.15.0",
+      "kubeVersion": ">=1.23.0-0"
+    },
+    "lock": null,
+    "values": {
+      "affinity": {},
+      "backend": null,
+      "backends": [],
+      "cache": "",
+      "certificate": {
+        "create": false,
+        "dnsNames": [
+          "podinfo"
+        ],
+        "issuerRef": {
+          "kind": "ClusterIssuer",
+          "name": "self-signed"
+        }
+      },
+      "config": {
+        "name": "",
+        "path": ""
+      },
+      "extraArgs": [],
+      "extraEnvs": [],
+      "faults": {
+        "delay": false,
+        "error": false,
+        "testFail": false,
+        "testTimeout": false,
+        "unhealthy": false,
+        "unready": false
+      },
+      "grpcRoute": {
+        "additionalLabels": {},
+        "annotations": {},
+        "enabled": false,
+        "hostnames": [
+          "podinfo.local"
+        ],
+        "parentRefs": [
+          {
+            "name": "gateway",
+            "sectionName": "http"
+          }
+        ],
+        "rules": [
+          {}
+        ]
+      },
+      "h2c": {
+        "enabled": false
+      },
+      "hooks": {
+        "postDelete": {
+          "job": {
+            "enabled": false,
+            "exitCode": 0,
+            "hookDeletePolicy": "hook-succeeded,hook-failed",
+            "sleepSeconds": null,
+            "ttlSecondsAfterFinished": null
+          }
+        },
+        "postInstall": {
+          "job": {
+            "enabled": false,
+            "exitCode": 0,
+            "hookDeletePolicy": "hook-succeeded,hook-failed",
+            "sleepSeconds": null,
+            "ttlSecondsAfterFinished": null
+          }
+        },
+        "postRollback": {
+          "job": {
+            "enabled": false,
+            "exitCode": 0,
+            "hookDeletePolicy": "hook-succeeded,hook-failed",
+            "sleepSeconds": null,
+            "ttlSecondsAfterFinished": null
+          }
+        },
+        "postUpgrade": {
+          "job": {
+            "enabled": false,
+            "exitCode": 0,
+            "hookDeletePolicy": "hook-succeeded,hook-failed",
+            "sleepSeconds": null,
+            "ttlSecondsAfterFinished": null
+          }
+        },
+        "preDelete": {
+          "job": {
+            "enabled": false,
+            "exitCode": 0,
+            "hookDeletePolicy": "hook-succeeded,hook-failed",
+            "sleepSeconds": null,
+            "ttlSecondsAfterFinished": null
+          }
+        },
+        "preInstall": {
+          "job": {
+            "enabled": false,
+            "exitCode": 0,
+            "hookDeletePolicy": "hook-succeeded,hook-failed",
+            "sleepSeconds": null,
+            "ttlSecondsAfterFinished": null
+          }
+        },
+        "preRollback": {
+          "job": {
+            "enabled": false,
+            "exitCode": 0,
+            "hookDeletePolicy": "hook-succeeded,hook-failed",
+            "sleepSeconds": null,
+            "ttlSecondsAfterFinished": null
+          }
+        },
+        "preUpgrade": {
+          "job": {
+            "enabled": false,
+            "exitCode": 0,
+            "hookDeletePolicy": "hook-succeeded,hook-failed",
+            "sleepSeconds": null,
+            "ttlSecondsAfterFinished": null
+          }
+        }
+      },
+      "host": null,
+      "hpa": {
+        "cpu": null,
+        "enabled": false,
+        "maxReplicas": 10,
+        "memory": null,
+        "requests": null
+      },
+      "httpRoute": {
+        "additionalLabels": {},
+        "annotations": {},
+        "enabled": false,
+        "hostnames": [
+          "podinfo.local"
+        ],
+        "parentRefs": [
+          {
+            "name": "gateway",
+            "sectionName": "http"
+          }
+        ],
+        "rules": [
+          {
+            "matches": [
+              {
+                "path": {
+                  "type": "PathPrefix",
+                  "value": "/"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "image": {
+        "pullPolicy": "IfNotPresent",
+        "pullSecrets": [],
+        "repository": "ghcr.io/stefanprodan/podinfo",
+        "tag": "6.15.0"
+      },
+      "ingress": {
+        "additionalLabels": {},
+        "annotations": {},
+        "className": "",
+        "enabled": false,
+        "hosts": [
+          {
+            "host": "podinfo.local",
+            "paths": [
+              {
+                "path": "/",
+                "pathType": "ImplementationSpecific"
+              }
+            ]
+          }
+        ],
+        "tls": []
+      },
+      "logLevel": "info",
+      "nodeSelector": {},
+      "podAnnotations": {},
+      "podDisruptionBudget": {},
+      "podSecurityContext": {},
+      "prefix": "/",
+      "priorityClassName": "",
+      "probes": {
+        "liveness": {
+          "failureThreshold": 3,
+          "initialDelaySeconds": 1,
+          "periodSeconds": 10,
+          "successThreshold": 1,
+          "timeoutSeconds": 5
+        },
+        "readiness": {
+          "failureThreshold": 3,
+          "initialDelaySeconds": 1,
+          "periodSeconds": 10,
+          "successThreshold": 1,
+          "timeoutSeconds": 5
+        },
+        "startup": {
+          "enable": false,
+          "failureThreshold": 20,
+          "initialDelaySeconds": 10,
+          "periodSeconds": 10,
+          "successThreshold": 1,
+          "timeoutSeconds": 5
+        }
+      },
+      "redis": {
+        "enabled": false,
+        "imagePullSecrets": [],
+        "repository": "docker.io/redis",
+        "tag": "8.8.0"
+      },
+      "replicaCount": 1,
+      "resources": {
+        "limits": null,
+        "requests": {
+          "cpu": "1m",
+          "memory": "16Mi"
+        }
+      },
+      "securityContext": {},
+      "service": {
+        "additionalLabels": {},
+        "annotations": {},
+        "enabled": true,
+        "externalPort": 9898,
+        "externalTrafficPolicy": "",
+        "grpcPort": 9999,
+        "grpcService": "podinfo",
+        "hostPort": null,
+        "httpPort": 9898,
+        "metricsPort": 9797,
+        "nodePort": 31198,
+        "trafficDistribution": "",
+        "type": "ClusterIP"
+      },
+      "serviceAccount": {
+        "enabled": false,
+        "imagePullSecrets": [],
+        "name": null
+      },
+      "serviceMonitor": {
+        "additionalLabels": {},
+        "enabled": false,
+        "interval": "15s"
+      },
+      "tls": {
+        "certPath": "/data/cert",
+        "enabled": false,
+        "hostPort": null,
+        "port": 9899,
+        "secretName": null
+      },
+      "tolerations": [],
+      "topologySpreadConstraints": [],
+      "ui": {
+        "color": "#34577c",
+        "logo": "",
+        "message": ""
+      }
+    },
+    "schema": null,
+    "schemamodtime": "0001-01-01T00:00:00Z",
+    "modtime": "2026-08-31T21:40:34+06:00"
+  },
+  "config": {
+    "replicaCount": 2,
+    "ui": {
+      "message": "Hello from DSO202"
+    }
+  },
+  "manifest": "---\n# Source: podinfo/templates/service.yaml\napiVersion: v1\nkind: Service\nmetadata:\n  name: my-podinfo\n  namespace: dso202-helm-p6\n  labels:\n    helm.sh/chart: podinfo-6.15.0\n    app.kubernetes.io/name: my-podinfo\n    app.kubernetes.io/version: \"6.15.0\"\n    app.kubernetes.io/managed-by: Helm\nspec:\n  type: ClusterIP\n  ports:\n    - port: 9898\n      targetPort: http\n      protocol: TCP\n      name: http\n    - port: 9999\n      targetPort: grpc\n      protocol: TCP\n      name: grpc\n  selector:\n    app.kubernetes.io/name: my-podinfo\n\n---\n# Source: podinfo/templates/deployment.yaml\napiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: my-podinfo\n  namespace: dso202-helm-p6\n  labels:\n    helm.sh/chart: podinfo-6.15.0\n    app.kubernetes.io/name: my-podinfo\n    app.kubernetes.io/version: \"6.15.0\"\n    app.kubernetes.io/managed-by: Helm\nspec:\n  replicas: 2\n  strategy:\n    type: RollingUpdate\n    rollingUpdate:\n      maxUnavailable: 1\n  selector:\n    matchLabels:\n      app.kubernetes.io/name: my-podinfo\n  template:\n    metadata:\n      labels:\n        app.kubernetes.io/name: my-podinfo\n      annotations:\n        prometheus.io/scrape: \"true\"\n        prometheus.io/port: \"9898\"\n    spec:\n      terminationGracePeriodSeconds: 30\n      containers:\n        - name: podinfo\n          image: \"ghcr.io/stefanprodan/podinfo:6.15.0\"\n          imagePullPolicy: IfNotPresent\n          command:\n            - ./podinfo\n            - --port=9898\n            - --prefix=/\n            - --cert-path=/data/cert\n            - --port-metrics=9797\n            - --grpc-port=9999\n            - --grpc-service-name=podinfo\n            - --level=info\n            - --random-delay=false\n            - --random-error=false\n          env:\n          - name: PODINFO_UI_MESSAGE\n            value: \"Hello from DSO202\"\n          - name: PODINFO_UI_COLOR\n            value: \"#34577c\"\n          ports:\n            - name: http\n              containerPort: 9898\n              protocol: TCP\n            - name: http-metrics\n              containerPort: 9797\n              protocol: TCP\n            - name: grpc\n              containerPort: 9999\n              protocol: TCP\n          livenessProbe:\n            exec:\n              command:\n              - podcli\n              - check\n              - http\n              - localhost:9898/healthz\n            initialDelaySeconds: 1\n            timeoutSeconds: 5\n            failureThreshold: 3\n            successThreshold: 1\n            periodSeconds: 10\n          readinessProbe:\n            exec:\n              command:\n              - podcli\n              - check\n              - http\n              - localhost:9898/readyz\n            initialDelaySeconds: 1\n            timeoutSeconds: 5\n            failureThreshold: 3\n            successThreshold: 1\n            periodSeconds: 10\n          volumeMounts:\n          - name: data\n            mountPath: /data\n          resources:\n            requests:\n              cpu: 1m\n              memory: 16Mi\n      volumes:\n      - name: data\n        emptyDir: {}\n\n",
+  "hooks": [
+    {
+      "name": "my-podinfo-grpc-test-ht1ym",
+      "kind": "Pod",
+      "path": "podinfo/templates/tests/grpc.yaml",
+      "manifest": "apiVersion: v1\nkind: Pod\nmetadata:\n  name: my-podinfo-grpc-test-ht1ym\n  namespace: dso202-helm-p6\n  labels:\n    helm.sh/chart: podinfo-6.15.0\n    app.kubernetes.io/name: my-podinfo\n    app.kubernetes.io/version: \"6.15.0\"\n    app.kubernetes.io/managed-by: Helm\n  annotations:\n    \"helm.sh/hook\": test-success\n    \"helm.sh/hook-delete-policy\": before-hook-creation,hook-succeeded\n    sidecar.istio.io/inject: \"false\"\n    linkerd.io/inject: disabled\n    appmesh.k8s.aws/sidecarInjectorWebhook: disabled\nspec:\n  containers:\n    - name: grpc-health-probe\n      image: ghcr.io/grpc-ecosystem/grpc-health-probe:v0.4.56\n      args:  ['-addr=my-podinfo.dso202-helm-p6:9999']\n  restartPolicy: Never\n",
+      "events": [
+        "test"
+      ],
+      "last_run": {
+        "phase": ""
+      },
+      "delete_policies": [
+        "before-hook-creation",
+        "hook-succeeded"
+      ]
+    },
+    {
+      "name": "my-podinfo-jwt-test-jp0pe",
+      "kind": "Pod",
+      "path": "podinfo/templates/tests/jwt.yaml",
+      "manifest": "apiVersion: v1\nkind: Pod\nmetadata:\n  name: my-podinfo-jwt-test-jp0pe\n  namespace: dso202-helm-p6\n  labels:\n    helm.sh/chart: podinfo-6.15.0\n    app.kubernetes.io/name: my-podinfo\n    app.kubernetes.io/version: \"6.15.0\"\n    app.kubernetes.io/managed-by: Helm\n  annotations:\n    \"helm.sh/hook\": test-success\n    \"helm.sh/hook-delete-policy\": before-hook-creation,hook-succeeded\n    sidecar.istio.io/inject: \"false\"\n    linkerd.io/inject: disabled\n    appmesh.k8s.aws/sidecarInjectorWebhook: disabled\nspec:\n  containers:\n    - name: tools\n      image: giantswarm/tiny-tools\n      command:\n        - sh\n        - -c\n        - |\n          TOKEN=$(curl -sd 'test' ${PODINFO_SVC}/token | jq -r .token) &&\n          curl -sH \"Authorization: Bearer ${TOKEN}\" ${PODINFO_SVC}/token/validate | grep test\n      env:\n      - name: PODINFO_SVC\n        value: \"my-podinfo.dso202-helm-p6:9898\"\n  restartPolicy: Never\n",
+      "events": [
+        "test"
+      ],
+      "last_run": {
+        "phase": ""
+      },
+      "delete_policies": [
+        "before-hook-creation",
+        "hook-succeeded"
+      ]
+    },
+    {
+      "name": "my-podinfo-service-test-fx0qm",
+      "kind": "Pod",
+      "path": "podinfo/templates/tests/service.yaml",
+      "manifest": "apiVersion: v1\nkind: Pod\nmetadata:\n  name: my-podinfo-service-test-fx0qm\n  namespace: dso202-helm-p6\n  labels:\n    helm.sh/chart: podinfo-6.15.0\n    app.kubernetes.io/name: my-podinfo\n    app.kubernetes.io/version: \"6.15.0\"\n    app.kubernetes.io/managed-by: Helm\n  annotations:\n    \"helm.sh/hook\": test-success\n    \"helm.sh/hook-delete-policy\": before-hook-creation,hook-succeeded\n    sidecar.istio.io/inject: \"false\"\n    linkerd.io/inject: disabled\n    appmesh.k8s.aws/sidecarInjectorWebhook: disabled\nspec:\n  containers:\n    - name: curl\n      image: curlimages/curl:7.69.0\n      command:\n        - sh\n        - -c\n        - |\n          curl -s ${PODINFO_SVC}/api/info | grep version\n      env:\n        - name: PODINFO_SVC\n          value: \"my-podinfo.dso202-helm-p6:9898\"\n  restartPolicy: Never\n",
+      "events": [
+        "test"
+      ],
+      "last_run": {
+        "phase": ""
+      },
+      "delete_policies": [
+        "before-hook-creation",
+        "hook-succeeded"
+      ]
+    }
+  ],
+  "version": 1,
+  "namespace": "dso202-helm-p6",
+  "apply_method": "ssa"
+}

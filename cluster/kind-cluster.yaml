@@ -1,0 +1,42 @@
+# =============================================================================
+# File        : cluster/kind-cluster.yaml
+# Practical   : DSO202 Practical 5 - Environment-Specific Configuration with
+#               Kustomize on Kind
+# Purpose     : Three-node cluster matching the lab topology
+#               (control-plane, worker-node-1, worker-node-2).
+# Apply with  : kind create cluster --config cluster/kind-cluster.yaml
+# Delete with : kind delete cluster --name dso202-p5
+# =============================================================================
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: dso202-p5
+
+networking:
+  apiServerAddress: "127.0.0.1"
+  podSubnet: "10.244.0.0/16"
+  serviceSubnet: "10.96.0.0/16"
+
+nodes:
+  - role: control-plane
+    image: kindest/node:v1.36.1@sha256:3489c7674813ba5d8b1a9977baea8a6e553784dab7b84759d1014dbd78f7ebd5
+    kubeadmConfigPatches:
+      - |
+        kind: InitConfiguration
+        nodeRegistration:
+          name: control-plane
+
+  - role: worker
+    image: kindest/node:v1.36.1@sha256:3489c7674813ba5d8b1a9977baea8a6e553784dab7b84759d1014dbd78f7ebd5
+    kubeadmConfigPatches:
+      - |
+        kind: JoinConfiguration
+        nodeRegistration:
+          name: worker-node-1
+
+  - role: worker
+    image: kindest/node:v1.36.1@sha256:3489c7674813ba5d8b1a9977baea8a6e553784dab7b84759d1014dbd78f7ebd5
+    kubeadmConfigPatches:
+      - |
+        kind: JoinConfiguration
+        nodeRegistration:
+          name: worker-node-2

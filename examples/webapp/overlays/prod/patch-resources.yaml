@@ -1,0 +1,19 @@
+# Strategic merge patch - only the fields that differ from the base are listed.
+# The container is matched by its "name" (the merge key), so all other
+# container fields (image, ports, probes, volumeMounts) are kept from the base.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp
+spec:
+  template:
+    spec:
+      containers:
+        - name: nginx
+          resources:
+            requests:
+              cpu: 200m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
